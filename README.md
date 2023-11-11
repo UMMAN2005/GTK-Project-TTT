@@ -44,6 +44,10 @@ This is a simple implementation of the classic Tic-Tac-Toe game using the GTK+ l
 
 Feel free to contribute to this project by forking it, making improvements, and creating a pull request.
 
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) - see the `LICENSE` file for details.
+
 ## Next...
 
-Fixing the problem about implementing of AI code and other improvements
+Fixing the problem about implementation of the AI code and the other improvements

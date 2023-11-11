@@ -6,6 +6,7 @@
 #include <limits.h>
 #include <math.h>
 
+// Hello Hello
 
 static GtkWidget*** buttons;
 static int N, M;
@@ -121,6 +122,9 @@ static void activate(GtkApplication* app, gpointer userData) {
 }
 
 static bool checkWin(int player, int row, int col) {
+    if (row < 0 || col < 0) {
+        return false;
+    }
     gchar playerSymbol = (player == 1) ? 'X' : 'O';
 
     int horizontalCount = 0;
@@ -265,6 +269,8 @@ static void cleanup() {
 
 
 
+
+
 // Define a function to evaluate the game state
 int evaluateGameState(int player, int row, int col) {
     int opponent = (player == 1) ? 2 : 1; // Determine the opponent
@@ -360,21 +366,40 @@ int minimax(int depth, int player) {
         return evaluateGameState(player, -1, -1);
     }
 
-    int bestScore = (player == 1) ? INT_MIN : INT_MAX;
-    
+    int bestScore;
+    int bestRow = -1;  // Track the best row
+    int bestCol = -1;  // Track the best column
+
+    if (player == 1)
+        bestScore = INT_MIN;
+    else
+        bestScore = INT_MAX;
+
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             if (gtk_button_get_label(GTK_BUTTON(buttons[i][j])) == NULL) {
                 gtk_button_set_label(GTK_BUTTON(buttons[i][j]), (player == 1) ? "X" : "O");
                 int score = -minimax(depth - 1, (player == 1) ? 2 : 1);
                 gtk_button_set_label(GTK_BUTTON(buttons[i][j]), NULL);
-                bestScore = (player == 1) ? MAX(bestScore, score) : MIN(bestScore, score);
+
+                if ((player == 1 && score > bestScore) || (player == 2 && score < bestScore)) {
+                    bestScore = score;
+                    bestRow = i;
+                    bestCol = j;
+                }
             }
         }
     }
-    
-    return bestScore;
+
+    if (player == 1 || depth == 1) {  // Return the best move for the AI (player 1)
+        return bestScore;
+    } else {  // If not the AI, return the score only
+        return player == 2 ? bestScore : 0;
+    }
 }
+
+
+
 
 
 // Modify the makeAIMove function to use Minimax with alpha-beta pruning
