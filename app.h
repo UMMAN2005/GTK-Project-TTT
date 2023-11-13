@@ -15,6 +15,7 @@ void buttonClicked(GtkWidget* widget, gpointer data);
 bool checkWin(int player, int row, int col);
 bool checkDraw();
 void showResultDialog(const char* message);
+void showInfoDialog(const char* infoMessage);
 void restartGame();
 void quitApplication();
 void setColor(GtkWidget*** widgets, gpointer user_data);

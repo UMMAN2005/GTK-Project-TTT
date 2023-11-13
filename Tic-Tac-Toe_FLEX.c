@@ -14,6 +14,7 @@ static void buttonClicked(GtkWidget*, gpointer);
 static bool checkWin(int, int, int);
 static bool checkDraw();
 static void showResultDialog(const char*);
+static void showInfoDialog(const char*);
 static void restartGame();
 static void quitApplication();
 static void setColor(GtkWidget***, gpointer);
@@ -65,11 +66,16 @@ static void buttonClicked(GtkWidget* widget, gpointer data) {
 static void activate(GtkApplication* app, gpointer userData) {
     GtkWidget* window;
     GtkWidget* grid;
-
+    input:
     printf("Enter the board length (N): ");
     scanf("%d", &N);
     printf("Enter the board width (M): ");
     scanf("%d", &M);
+    if (N < 3 || M < 3){
+    printf("Input is not valid!. At least 3\n");
+    goto input;
+}
+    showInfoDialog("The source code can be found at:\nhttps://github.com/UMMAN2005/GTK-Project-TTT\n\nIf you want to change the source code, please send a pull request.");
 
     window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "Tic-Tac-Toe");
@@ -236,3 +242,14 @@ static void cleanup() {
     }
     free(buttons);
 }
+
+
+static void showInfoDialog(const char* infoMessage) {
+    GtkWidget* dialog;
+    dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, infoMessage);
+    gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+}
+
