@@ -37,7 +37,8 @@ This is a simple implementation of the classic Tic-Tac-Toe game using the GTK+ l
 - `Tic-Tac-Toe_FLEX.c`: Contains the main C code for the Tic-Tac-Toe game (NxM).
 - `main.c`, `app.c` and `app.h` : Contains the main C code for the Tic-Tac-Toe game (NxM). Also divided into 3 parts to be more readable.
 - `Tic-Tac-Toe_AI.c`: Contains the main C code for the Tic-Tac-Toe game (NxM). Try to implement AI for solo playing.
-- `Minimax.c`: Contains the main C code for the Minimax
+- `Minimax.c`: Contains the main C code for the Minimax algorithm for 3x3
+- `Project.c`: Contains the main C code for the basic CLI Tic-Tac-Toe NxN game
 - `README.md`: This file, providing information and instructions for the application.
 - `Makefile` : Compile file for the most stable version.
 
