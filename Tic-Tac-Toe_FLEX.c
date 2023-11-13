@@ -1,6 +1,7 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 static GtkWidget*** buttons;
 static int N, M;
@@ -66,15 +67,24 @@ static void buttonClicked(GtkWidget* widget, gpointer data) {
 static void activate(GtkApplication* app, gpointer userData) {
     GtkWidget* window;
     GtkWidget* grid;
-    input:
-    printf("Enter the board length (N): ");
-    scanf("%d", &N);
-    printf("Enter the board width (M): ");
-    scanf("%d", &M);
-    if (N < 3 || M < 3){
-    printf("Input is not valid!. At least 3\n");
-    goto input;
-}
+    do {
+        printf("Enter the board length (N): ");
+        if (scanf("%d", &N) != 1 || N < 3) {
+            printf("Input is not valid! Please enter an integer greater than or equal to 3.\n");
+            while (getchar() != '\n');
+        }
+    } while (N < 3);
+
+    do {
+        printf("Enter the board width (M): ");
+        if (scanf("%d", &M) != 1 || M < 3) {
+            printf("Input is not valid! Please enter an integer greater than or equal to 3.\n");
+            while (getchar() != '\n');
+        }
+    } while (M < 3);
+
+    printf("Board length: %d, Board width: %d\n", N, M);
+    
     showInfoDialog("The source code can be found at:\nhttps://github.com/UMMAN2005/GTK-Project-TTT\n\nIf you want to change the source code, please send a pull request.");
 
     window = gtk_application_window_new(app);
